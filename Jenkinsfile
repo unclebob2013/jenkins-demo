@@ -1,4 +1,4 @@
-node('haimaxy-jnlp') {
+node('gongyue-jnlp') {
     stage('Prepare') {
         echo "1.Prepare Stage"
         checkout scm
@@ -14,13 +14,13 @@ node('haimaxy-jnlp') {
     }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "docker build -t cnych/jenkins-demo:${build_tag} ."
+        sh "docker build -t gongyue/jenkins-demo:${build_tag} ."
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-            sh "docker push cnych/jenkins-demo:${build_tag}"
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPassword', usernameVariable: 'dockerhubUser')]) {
+            sh "docker login -u ${dockerhubUser} -p ${dockerhubPassword}"
+            sh "docker push gongyue/jenkins-demo:${build_tag}"
         }
     }
     stage('Deploy') {
