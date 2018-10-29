@@ -14,13 +14,13 @@ node('gongyue-jnlp') {
     }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "docker build -t gongyue/jenkins-demo:${build_tag} ."
+        sh "docker build -t dockeredge90/jenkins-demo:${build_tag} ."
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPassword', usernameVariable: 'dockerhubUser')]) {
             sh "docker login -u ${dockerhubUser} -p ${dockerhubPassword}"
-            sh "docker push gongyue/jenkins-demo:${build_tag}"
+            sh "docker push dockeredge90/jenkins-demo:${build_tag}"
         }
     }
     stage('Deploy') {
